@@ -1,0 +1,314 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "MicroServico para el manejo de ofertas",
+    "version": "1.0.0",
+    "title": "Microservicio ofertas",
+    "contact": {
+      "email": "alexis.correa@accenture.com"
+    }
+  },
+  "host": "localhost:8070",
+  "basePath": "/ofertas",
+  "paths": {
+    "/registrar": {
+      "post": {
+        "tags": [
+          "ofertas"
+        ],
+        "summary": "registro de ofertas",
+        "description": "registro de ofertas",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ofertas registrada correctamente",
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "datos imcompletos o incorrectos",
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyResponseErrors"
+            }
+          }
+        }
+      }
+    },
+    "/listar/{inegocio}": {
+      "get": {
+        "tags": [
+          "ofertas"
+        ],
+        "summary": "buscar ofertas",
+        "description": "devuelve todas las ofertas relacionadas con el id del negocio",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "inegocio",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ofertas encontradas",
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyRequest"
+            }
+          },
+          "404": {
+            "description": "datos imcompletos o incorrectos",
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyResponseErrors"
+            }
+          }
+        }
+      }
+    },
+    "/listar": {
+      "get": {
+        "tags": [
+          "ofertas"
+        ],
+        "summary": "buscar ofertas",
+        "description": "devuelve todas las ofertas",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "ofertas encontradas",
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyRequest"
+            }
+          },
+          "404": {
+            "description": "datos imcompletos o incorrectos",
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyResponseErrors"
+            }
+          }
+        }
+      }
+    },
+    "/eliminar": {
+      "delete": {
+        "tags": [
+          "ofertas"
+        ],
+        "summary": "eliminar ofertas",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyRequestDelete"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "oferta eliminada",
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyResponseSuccess"
+            }
+          },
+          "404": {
+            "description": "datos imcompletos o incorrectos",
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyResponseErrors"
+            }
+          }
+        }
+      }
+    },
+    "/editar": {
+      "put": {
+        "tags": [
+          "ofertas"
+        ],
+        "summary": "edita ofertas",
+        "description": "edita todo tipo de ofertas",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ofertas edita correctamente",
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "datos imcompletos o incorrectos",
+            "schema": {
+              "$ref": "#/definitions/JsonApiBodyResponseErrors"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "JsonApiBodyRequestDelete": {
+      "type": "object",
+      "required": [
+        "oferta"
+      ],
+      "properties": {
+        "oferta": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DeleteRequest"
+          }
+        }
+      }
+    },
+    "JsonApiBodyRequest": {
+      "type": "object",
+      "required": [
+        "oferta"
+      ],
+      "properties": {
+        "oferta": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegistrarRequest"
+          }
+        }
+      }
+    },
+    "DeleteRequest": {
+      "type": "object",
+      "required": [
+        "id",
+        "idadministrador",
+        "token"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "idadministrador": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "RegistrarRequest": {
+      "type": "object",
+      "required": [
+        "id",
+        "producto",
+        "detalle",
+        "valor",
+        "descuento",
+        "foto",
+        "idnegocio",
+        "fecha_inicio",
+        "fecha_final"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "producto": {
+          "type": "string"
+        },
+        "detalle": {
+          "type": "string"
+        },
+        "valor": {
+          "type": "string"
+        },
+        "descuento": {
+          "type": "string"
+        },
+        "foto": {
+          "type": "string"
+        },
+        "idnegocio": {
+          "type": "string"
+        },
+        "fecha_inicio": {
+          "type": "string"
+        },
+        "fecha_final": {
+          "type": "string"
+        }
+      }
+    },
+    "JsonApiBodyResponseErrors": {
+      "type": "object",
+      "required": [
+        "codigo",
+        "detalle"
+      ],
+      "properties": {
+        "codigo": {
+          "type": "string"
+        },
+        "detalle": {
+          "type": "string"
+        }
+      }
+    },
+    "JsonApiBodyResponseSuccess": {
+      "type": "object",
+      "required": [
+        "id",
+        "nombre",
+        "estado"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "estado": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
