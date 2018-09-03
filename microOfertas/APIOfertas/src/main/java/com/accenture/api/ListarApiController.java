@@ -75,7 +75,7 @@ public class ListarApiController implements ListarApi {
         if (accept != null && accept.contains("application/json")) {
         	 try {
              	List<RegistrarRequest> ofertas= new ArrayList<>();
-             	oferta_respository.findByidnegocio(idnegocio).forEach(ofertas::add);;
+             	oferta_respository.findByIdnegocio(idnegocio).forEach(ofertas::add);;
              	JsonApiBodyRequest retorno= new JsonApiBodyRequest();
              	retorno.setOferta(ofertas);
                  return new ResponseEntity<JsonApiBodyRequest>(retorno,HttpStatus.OK);

@@ -7,6 +7,8 @@ import com.accenture.repository.ofertaRepository;
 import com.accenture.util.CopiAndWrite;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+
+import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +64,10 @@ public class RegistrarApiController implements RegistrarApi {
         		body.getOferta().get(0).setId(copiarAndWrite.leer());
         		copiarAndWrite.escribir();
 				oferta_repository.save(body.getOferta().get(0));
+				exito.setId(body.getOferta().get(0).getId());
+				exito.setEstado("Registro Correcto");
+				exito.setNombre(body.getOferta().get(0).getProducto());
+				return new ResponseEntity<JsonApiBodyResponseSuccess>(exito,HttpStatus.OK);
 			} catch (Exception e) {
 				error.setCodigo("001");
 				error.setDetalle("Error interno a la hora de registra oferta");

@@ -67,7 +67,7 @@ public class EditarApiController implements EditarApi {
             	oferta_repository.save(body.getOferta().get(0));
             	exito.setId(oferta.getId());
             	exito.setNombre("oferta");
-            	exito.setEstado("La oferta fue creada exitosamente");
+            	exito.setEstado("La oferta fue editada exitosamente");
                 return new ResponseEntity<JsonApiBodyResponseSuccess>(exito,HttpStatus.OK);
             } catch (Exception e) {
             	error.setCodigo("");

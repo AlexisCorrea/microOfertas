@@ -12,7 +12,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 @Configuration
-@EnableDynamoDBRepositories(basePackages="ApiNegocio.repository")
+@EnableDynamoDBRepositories(basePackages="com.accenture.repository")
 public class DynamoConfiguration {
 	@Value("${amazon.dynamodb.endpoint}")
 	private String dBEndpoint;

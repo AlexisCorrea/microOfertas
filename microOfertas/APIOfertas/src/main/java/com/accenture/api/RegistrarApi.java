@@ -8,6 +8,7 @@ package com.accenture.api;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -28,7 +29,7 @@ import java.util.List;
 
 @Api(value = "registrar", description = "the registrar API")
 public interface RegistrarApi {
-
+	@CrossOrigin(origins = "http://localhost:4200") 
     @ApiOperation(value = "registro de ofertas", nickname = "registrarPost", notes = "registro de ofertas", response = JsonApiBodyResponseSuccess.class, tags={ "ofertas", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "ofertas registrada correctamente", response = JsonApiBodyResponseSuccess.class),

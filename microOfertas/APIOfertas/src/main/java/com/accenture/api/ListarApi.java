@@ -8,6 +8,7 @@ package com.accenture.api;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -27,7 +28,7 @@ import java.util.List;
 
 @Api(value = "listar", description = "the listar API")
 public interface ListarApi {
-
+	 @CrossOrigin(origins = "http://localhost:4200")
     @ApiOperation(value = "buscar ofertas", nickname = "listarGet", notes = "devuelve todas las ofertas", response = JsonApiBodyRequest.class, tags={ "ofertas", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "ofertas encontradas", response = JsonApiBodyRequest.class),
@@ -37,7 +38,7 @@ public interface ListarApi {
         method = RequestMethod.GET)
     ResponseEntity<?> listarGet();
 
-
+	 @CrossOrigin(origins = "http://localhost:4200")
     @ApiOperation(value = "buscar ofertas", nickname = "listarInegocioGet", notes = "devuelve todas las ofertas relacionadas con el id del negocio", response = JsonApiBodyRequest.class, tags={ "ofertas", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "ofertas encontradas", response = JsonApiBodyRequest.class),
