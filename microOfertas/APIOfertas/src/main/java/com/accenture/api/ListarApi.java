@@ -47,5 +47,14 @@ public interface ListarApi {
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<?> listarInegocioGet(@ApiParam(value = "",required=true) @PathVariable("idnegocio") String idnegocio);
-
+	 
+	 @CrossOrigin(origins = "http://localhost:4200")
+	    @ApiOperation(value = "ID siguiente", nickname = "id siguientee", notes = "retorna el id que sigue para guardar en firebase", response = String.class, tags={ "ofertas", })
+	    @ApiResponses(value = { 
+	        @ApiResponse(code = 200, message = "ofertas encontradas", response = String.class),
+	        @ApiResponse(code = 404, message = "datos imcompletos o incorrectos", response = JsonApiBodyResponseErrors.class) })
+	    @RequestMapping(value = "/obtenerIDsiguiente",
+	        produces = { "application/json" }, 
+	        method = RequestMethod.GET)
+	    ResponseEntity<?> obtenerIDsiguiente();
 }

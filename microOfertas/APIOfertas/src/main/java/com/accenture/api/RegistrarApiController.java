@@ -8,6 +8,11 @@ import com.accenture.util.CopiAndWrite;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 
+
+
+import sun.misc.BASE64Encoder;
+import javax.xml.bind.DatatypeConverter;
+
 import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +42,7 @@ public class RegistrarApiController implements RegistrarApi {
     private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
+ 
     
     private CopiAndWrite copiarAndWrite;
     @Autowired
@@ -63,6 +69,10 @@ public class RegistrarApiController implements RegistrarApi {
         	try {
         		body.getOferta().get(0).setId(copiarAndWrite.leer());
         		copiarAndWrite.escribir();
+//        		String res = DatatypeConverter.printBase64Binary(body.getOferta().get(0).getFoto().getBytes());
+//        		System.out.println("COD de la foto a guardar----->>>");
+//        		System.out.println(res);
+//        		body.getOferta().get(0).setFoto(res);
 				oferta_repository.save(body.getOferta().get(0));
 				exito.setId(body.getOferta().get(0).getId());
 				exito.setEstado("Registro Correcto");
@@ -70,7 +80,7 @@ public class RegistrarApiController implements RegistrarApi {
 				return new ResponseEntity<JsonApiBodyResponseSuccess>(exito,HttpStatus.OK);
 			} catch (Exception e) {
 				error.setCodigo("001");
-				error.setDetalle("Error interno a la hora de registra oferta");
+				error.setDetalle("Error interno a la hora de registra oferta"+e.getMessage());
 				return new ResponseEntity<JsonApiBodyResponseErrors>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 			}
         	

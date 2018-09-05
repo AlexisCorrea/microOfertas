@@ -1,5 +1,6 @@
 package com.accenture.model;
 
+import java.io.FileInputStream;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
@@ -168,8 +169,8 @@ public class RegistrarRequest   {
     return foto;
   }
 
-  public void setFoto(String foto) {
-    this.foto = foto;
+  public void setFoto(String string) {
+    this.foto = string;
   }
 
   public RegistrarRequest idnegocio(String idnegocio) {

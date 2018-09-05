@@ -5,6 +5,7 @@ import com.accenture.model.JsonApiBodyResponseErrors;
 import com.accenture.model.JsonApiBodyResponseSuccess;
 import com.accenture.model.RegistrarRequest;
 import com.accenture.repository.ofertaRepository;
+import com.accenture.util.CopiAndWrite;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -36,6 +37,8 @@ public class ListarApiController implements ListarApi {
 
     private final ObjectMapper objectMapper;
 
+    private CopiAndWrite copiarAndWrite;
+    
     private final HttpServletRequest request;
     
     @Autowired
@@ -89,5 +92,10 @@ public class ListarApiController implements ListarApi {
          error.setDetalle("error de cabezera");
          return new ResponseEntity<JsonApiBodyResponseErrors>(error,HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+	@Override
+	public ResponseEntity<?> obtenerIDsiguiente() {
+		return new ResponseEntity<String>(copiarAndWrite.leer(),HttpStatus.OK);
+	}
 
 }
