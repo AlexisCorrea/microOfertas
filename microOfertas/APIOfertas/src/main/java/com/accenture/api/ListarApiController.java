@@ -78,7 +78,7 @@ public class ListarApiController implements ListarApi {
         if (accept != null && accept.contains("application/json")) {
         	 try {
              	List<RegistrarRequest> ofertas= new ArrayList<>();
-             	oferta_respository.findByIdnegocio(idnegocio).forEach(ofertas::add);;
+             	oferta_respository.findByIdnegocio(idnegocio).forEach(ofertas::add);
              	JsonApiBodyRequest retorno= new JsonApiBodyRequest();
              	retorno.setOferta(ofertas);
                  return new ResponseEntity<JsonApiBodyRequest>(retorno,HttpStatus.OK);
@@ -96,6 +96,53 @@ public class ListarApiController implements ListarApi {
 	@Override
 	public ResponseEntity<?> obtenerIDsiguiente() {
 		return new ResponseEntity<String>(copiarAndWrite.leer(),HttpStatus.OK);
+	}
+
+	
+	public ResponseEntity<?> listarOfertasbyNegocioAndTipo(
+			@ApiParam(value = "Id del negocio asociado a la oferta", required = true) @PathVariable("idnegocio") String idnegocio,
+			@ApiParam(value = "Id del negocio asociado a la oferta", required = true) @PathVariable("tipo") String tipo)
+	{
+		  String accept = request.getHeader("Accept");
+	        if (accept != null && accept.contains("application/json")) {
+	        	 try {
+	             	List<RegistrarRequest> ofertas= new ArrayList<>();
+	             	oferta_respository.findByIdnegocioAndTipo(idnegocio, tipo).forEach(ofertas::add);
+	             	JsonApiBodyRequest retorno= new JsonApiBodyRequest();
+	             	retorno.setOferta(ofertas);
+	                 return new ResponseEntity<JsonApiBodyRequest>(retorno,HttpStatus.OK);
+	             } catch (Exception e) {
+	                 error.setCodigo("");
+	                 error.setDetalle("");
+	                 return new ResponseEntity<JsonApiBodyResponseErrors>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+	             }
+	         }
+	         error.setCodigo("");
+	         error.setDetalle("error de cabezera");
+	         return new ResponseEntity<JsonApiBodyResponseErrors>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@Override
+	public ResponseEntity<?> listarOfertasbyTipo(
+			@ApiParam(value = "tipo oferta", required = true) @PathVariable("tipo") String tipo) {
+		String accept = request.getHeader("Accept");
+        if (accept != null && accept.contains("application/json")) {
+        	 try {
+             	List<RegistrarRequest> ofertas= new ArrayList<>();
+             	oferta_respository.findByTipo(tipo).forEach(ofertas::add);
+             	JsonApiBodyRequest retorno= new JsonApiBodyRequest();
+             	retorno.setOferta(ofertas);
+                 return new ResponseEntity<JsonApiBodyRequest>(retorno,HttpStatus.OK);
+             } catch (Exception e) {
+                 error.setCodigo("");
+                 error.setDetalle("");
+                 return new ResponseEntity<JsonApiBodyResponseErrors>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+             }
+         }
+         error.setCodigo("");
+         error.setDetalle("error de cabezera");
+         return new ResponseEntity<JsonApiBodyResponseErrors>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+		
 	}
 
 }

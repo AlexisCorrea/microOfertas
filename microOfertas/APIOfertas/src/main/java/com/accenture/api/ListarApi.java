@@ -24,37 +24,55 @@ import com.accenture.model.JsonApiBodyResponseErrors;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-08-14T12:25:25.106-05:00")
 
 @Api(value = "listar", description = "the listar API")
 public interface ListarApi {
-	 @CrossOrigin(origins = "http://localhost:4200")
-    @ApiOperation(value = "buscar ofertas", nickname = "listarGet", notes = "devuelve todas las ofertas", response = JsonApiBodyRequest.class, tags={ "ofertas", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "ofertas encontradas", response = JsonApiBodyRequest.class),
-        @ApiResponse(code = 404, message = "datos imcompletos o incorrectos", response = JsonApiBodyResponseErrors.class) })
-    @RequestMapping(value = "/listar",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<?> listarGet();
+	@CrossOrigin(origins = "http://localhost:4200")
+	@ApiOperation(value = "buscar ofertas", nickname = "listarGet", notes = "devuelve todas las ofertas", response = JsonApiBodyRequest.class, tags = {
+			"ofertas", })
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "ofertas encontradas", response = JsonApiBodyRequest.class),
+			@ApiResponse(code = 404, message = "datos imcompletos o incorrectos", response = JsonApiBodyResponseErrors.class) })
+	@RequestMapping(value = "/listar", produces = { "application/json" }, method = RequestMethod.GET)
+	ResponseEntity<?> listarGet();
 
-	 @CrossOrigin(origins = "http://localhost:4200")
-    @ApiOperation(value = "buscar ofertas", nickname = "listarInegocioGet", notes = "devuelve todas las ofertas relacionadas con el id del negocio", response = JsonApiBodyRequest.class, tags={ "ofertas", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "ofertas encontradas", response = JsonApiBodyRequest.class),
-        @ApiResponse(code = 404, message = "datos imcompletos o incorrectos", response = JsonApiBodyResponseErrors.class) })
-    @RequestMapping(value = "/listar/{inegocio}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<?> listarInegocioGet(@ApiParam(value = "",required=true) @PathVariable("idnegocio") String idnegocio);
-	 
-	 @CrossOrigin(origins = "http://localhost:4200")
-	    @ApiOperation(value = "ID siguiente", nickname = "id siguientee", notes = "retorna el id que sigue para guardar en firebase", response = String.class, tags={ "ofertas", })
-	    @ApiResponses(value = { 
-	        @ApiResponse(code = 200, message = "ofertas encontradas", response = String.class),
-	        @ApiResponse(code = 404, message = "datos imcompletos o incorrectos", response = JsonApiBodyResponseErrors.class) })
-	    @RequestMapping(value = "/obtenerIDsiguiente",
-	        produces = { "application/json" }, 
-	        method = RequestMethod.GET)
-	    ResponseEntity<?> obtenerIDsiguiente();
+	@CrossOrigin(origins = "http://localhost:4200")
+	@ApiOperation(value = "buscar ofertas", nickname = "listarInegocioGet", notes = "devuelve todas las ofertas relacionadas con el id del negocio", response = JsonApiBodyRequest.class, tags = {
+			"ofertas", })
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "ofertas encontradas", response = JsonApiBodyRequest.class),
+			@ApiResponse(code = 404, message = "datos imcompletos o incorrectos", response = JsonApiBodyResponseErrors.class) })
+	@RequestMapping(value = "/listar/{inegocio}", produces = { "application/json" }, method = RequestMethod.GET)
+	ResponseEntity<?> listarInegocioGet(
+			@ApiParam(value = "", required = true) @PathVariable("idnegocio") String idnegocio);
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@ApiOperation(value = "ID siguiente", nickname = "id siguientee", notes = "retorna el id que sigue para guardar en firebase", response = String.class, tags = {
+			"ofertas", })
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ofertas encontradas", response = String.class),
+			@ApiResponse(code = 404, message = "datos imcompletos o incorrectos", response = JsonApiBodyResponseErrors.class) })
+	@RequestMapping(value = "/obtenerIDsiguiente", produces = { "application/json" }, method = RequestMethod.GET)
+	ResponseEntity<?> obtenerIDsiguiente();
+
+	@ApiOperation(value = "Listado de ofertas por negocio", nickname = "listarOfertasbyNegocioAndTipo", notes = "Listado de negocios por idadmin en la tabla negociso de la base de datos.", response = JsonApiBodyRequest.class, tags = {
+			"negocios", })
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = JsonApiBodyRequest.class),
+			@ApiResponse(code = 404, message = "Negocio no encontrado", response = JsonApiBodyResponseErrors.class) })
+	@RequestMapping(value = "/listar/filtro/{idnegocio}/{tipo}", produces = {
+			"application/json" }, method = RequestMethod.GET)
+	ResponseEntity<?> listarOfertasbyNegocioAndTipo(
+			@ApiParam(value = "Id del negocio asociado a la oferta", required = true) @PathVariable("idnegocio") String idnegocio,
+			@ApiParam(value = "Id del negocio asociado a la oferta", required = true) @PathVariable("tipo") String tipo);
+
+	@ApiOperation(value = "Listado de ofertas por negocio", nickname = "listarOfertasbyNegocioAndTipo", notes = "Listado de negocios por idadmin en la tabla negociso de la base de datos.", response = JsonApiBodyRequest.class, tags = {
+			"negocios", })
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = JsonApiBodyRequest.class),
+			@ApiResponse(code = 404, message = "Negocio no encontrado", response = JsonApiBodyResponseErrors.class) })
+	@RequestMapping(value = "/listar/tipo/{tipo}", produces = {
+			"application/json" }, method = RequestMethod.GET)
+	ResponseEntity<?> listarOfertasbyTipo(
+			@ApiParam(value = "tipo oferta", required = true) @PathVariable("tipo") String tipo);
+			
 }

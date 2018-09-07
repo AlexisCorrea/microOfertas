@@ -32,6 +32,10 @@ public class RegistrarRequest   {
   @JsonProperty("valor")
   private String valor = null;
 
+  @JsonProperty("tipo")
+  private String tipo = null;
+
+  
   @JsonProperty("descuento")
   private String descuento = null;
 
@@ -91,6 +95,21 @@ public class RegistrarRequest   {
 
   public RegistrarRequest detalle(String detalle) {
     this.detalle = detalle;
+    return this;
+  }
+  
+
+  @DynamoDBAttribute
+  public String getTipo() {
+    return tipo;
+  }
+
+  public void setTipo(String tipo) {
+    this.tipo = tipo;
+  }
+
+  public RegistrarRequest tipo(String tipo) {
+    this.tipo = tipo;
     return this;
   }
 
