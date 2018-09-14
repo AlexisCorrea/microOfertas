@@ -22,6 +22,8 @@ import com.accenture.model.JsonApiBodyRequest;
 import com.accenture.model.JsonApiBodyResponseErrors;
 import com.accenture.model.JsonApiBodyResponseSuccess;
 
+import com.accenture.model.*;
+
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
@@ -39,5 +41,6 @@ public interface RegistrarApi {
         consumes = { "application/json" },
         method = RequestMethod.POST)
     ResponseEntity<?> registrarPost(@ApiParam(value = "body" ,required=true )  @Valid @RequestBody JsonApiBodyRequest body);
+
 
 }

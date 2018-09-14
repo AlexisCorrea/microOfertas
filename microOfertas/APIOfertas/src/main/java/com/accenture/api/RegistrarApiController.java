@@ -3,6 +3,8 @@ package com.accenture.api;
 import com.accenture.model.JsonApiBodyRequest;
 import com.accenture.model.JsonApiBodyResponseErrors;
 import com.accenture.model.JsonApiBodyResponseSuccess;
+import com.accenture.model.RegistrarRequest;
+
 import com.accenture.repository.ofertaRepository;
 import com.accenture.util.CopiAndWrite;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,6 +33,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-08-14T12:25:25.106-05:00")
 
@@ -94,5 +97,6 @@ public class RegistrarApiController implements RegistrarApi {
 
         return new ResponseEntity<JsonApiBodyResponseSuccess>(HttpStatus.NOT_IMPLEMENTED);
     }
+	
 
 }

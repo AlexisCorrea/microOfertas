@@ -1,5 +1,6 @@
 package com.accenture.api;
 
+import com.accenture.model.BodyFiltrado;
 import com.accenture.model.JsonApiBodyRequest;
 import com.accenture.model.JsonApiBodyResponseErrors;
 import com.accenture.model.JsonApiBodyResponseSuccess;
@@ -77,6 +78,7 @@ public class ListarApiController implements ListarApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
         	 try {
+        	
              	List<RegistrarRequest> ofertas= new ArrayList<>();
              	oferta_respository.findByIdnegocio(idnegocio).forEach(ofertas::add);
              	JsonApiBodyRequest retorno= new JsonApiBodyRequest();
@@ -143,6 +145,21 @@ public class ListarApiController implements ListarApi {
          error.setDetalle("error de cabezera");
          return new ResponseEntity<JsonApiBodyResponseErrors>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 		
+	}
+
+	@Override
+	public ResponseEntity<JsonApiBodyRequest> listarFiltroPost(@ApiParam(value = "body" ,required=true )  @Valid @RequestBody BodyFiltrado body) {
+		String accept = request.getHeader("Accept");
+        if (accept != null && accept.contains("application/json")) {
+        	
+        	List<RegistrarRequest> ofertas= new ArrayList<>();
+         	oferta_respository.findByIdnegocioAndTipo(body.getIdes(), body.getTipo()).forEach(ofertas::add);
+         	JsonApiBodyRequest retorno= new JsonApiBodyRequest();
+         	System.out.println(ofertas);
+         	retorno.setOferta(ofertas);
+         	return new ResponseEntity<JsonApiBodyRequest>(retorno,HttpStatus.OK);
+        }
+        return null;
 	}
 
 }
